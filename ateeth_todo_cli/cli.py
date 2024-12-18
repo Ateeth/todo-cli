@@ -5,6 +5,8 @@ from ateeth_todo_cli.model.Task import Task
 import json
 import os
 import pandas as pd
+from rich.table import Table
+from rich.console import Console
 
 app = typer.Typer()
 
@@ -65,10 +67,35 @@ def list(query: Optional[str] = typer.Argument(None)):
             return
     else:
         filtered_tasks = tasks
-        
-    df = pd.DataFrame(filtered_tasks)
-    print(df)
-
+    
+    if not filtered_tasks:
+        typer.echo("No tasks found!")
+        return
+    
+    # Initialize Rich Console
+    console = Console()
+    
+    # Create a Rich Table
+    table = Table(title="Todo Tasks")
+    table.add_column("ID", style="green", justify="center")
+    table.add_column("Description", style="green")
+    table.add_column("Status", style="green")
+    table.add_column("Created At", style="green")
+    table.add_column("Updated At", style="green", justify="center")
+    
+    # Add rows to the table
+    for task in filtered_tasks:
+        table.add_row(
+            str(task["id"]),
+            task["description"],
+            task["status"],
+            task["createdAt"],
+            task.get("updatedAt", "N/A")  # Handle missing updatedAt
+        )
+    
+    # Render the table
+    console.print(table)
+    
 @app.command()
 def update(id: int, desc: str):
     """

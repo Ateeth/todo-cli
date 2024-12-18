@@ -11,7 +11,7 @@ class Task:
     def __init__(self, desc, id):
         self.description = desc
         self.id = id
-        self.status = "Todo"
+        self.status = "todo"
         self.createdAt = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") 
         self.updatedAt = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") 
 
