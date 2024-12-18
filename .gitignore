@@ -2,3 +2,4 @@ ateeth_todo_cli/data
 ateeth_todo_cli/__pycache__
 ateeth_todo_cli/model/__pycache__
 poetry.lock
+.pypirc
